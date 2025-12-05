@@ -5,7 +5,8 @@ export default {
     if (env && env.KV && typeof globalThis.KV === 'undefined') {
       globalThis.KV = env.KV
     }
-    
+
+    const token = env.TOKEN ;
     return handleRequest(request)
   }
 }
@@ -138,7 +139,7 @@ async function handleRequest(request) {
   const currentOrigin = reqUrl.origin
   const defaultPrefix = currentOrigin + '/?url='
 
-  if (tokenParam !== env.TOKEN) {
+  if (tokenParam !== token) {
     return errorResponse('Invalid token!')
   }
   
