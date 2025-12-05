@@ -76,7 +76,7 @@ function addOrReplacePrefix(obj, newPrefix) {
   for (const key in obj) {
     if (key === 'api' && typeof obj[key] === 'string') {
       let apiUrl = obj[key]
-      const urlIndex = apiUrl.indexOf('?url=')
+      const urlIndex = apiUrl.indexOf('&url=')
       if (urlIndex !== -1) apiUrl = apiUrl.slice(urlIndex + 5)
       if (!apiUrl.startsWith(newPrefix)) apiUrl = newPrefix + apiUrl
       newObj[key] = apiUrl
@@ -138,7 +138,7 @@ async function handleRequest(request) {
   const tokenParam = reqUrl.searchParams.get('token')
 
   const currentOrigin = reqUrl.origin
-  const defaultPrefix = currentOrigin + '/?url='
+  const defaultPrefix = currentOrigin + '/?token=${tokenParam}&url='
 
   if (tokenParam !== token) {
     return errorResponse('Invalid token!')
