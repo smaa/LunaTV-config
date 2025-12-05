@@ -1,4 +1,5 @@
 // 统一入口：兼容 Cloudflare Workers 和 Pages Functions
+let token='';
 export default {
   async fetch(request, env, ctx) {
     // Pages Functions 中 KV 需要从 env 中获取
@@ -6,7 +7,7 @@ export default {
       globalThis.KV = env.KV
     }
 
-    const token = env.TOKEN ;
+    token = env.TOKEN ;
     return handleRequest(request)
   }
 }
