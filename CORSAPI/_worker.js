@@ -133,10 +133,15 @@ async function handleRequest(request) {
   const formatParam = reqUrl.searchParams.get('format')
   const prefixParam = reqUrl.searchParams.get('prefix')
   const sourceParam = reqUrl.searchParams.get('source')
+  const tokenParam = reqUrl.searchParams.get('token')
 
   const currentOrigin = reqUrl.origin
   const defaultPrefix = currentOrigin + '/?url='
 
+  if (tokenParam !== env.TOKEN) {
+    return errorResponse('Invalid token!')
+  }
+  
   // 🩺 健康检查（最常见的性能检查，提前处理）
   if (pathname === '/health') {
     return new Response('OK', { status: 200, headers: CORS_HEADERS })
