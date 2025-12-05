@@ -138,7 +138,7 @@ async function handleRequest(request) {
   const tokenParam = reqUrl.searchParams.get('token')
 
   const currentOrigin = reqUrl.origin
-  const defaultPrefix = currentOrigin + '/?token=${tokenParam}&url='
+  const defaultPrefix = currentOrigin + `/?token=${tokenParam}&url=`
 
   if (tokenParam !== token) {
     return errorResponse('Invalid token!')
