@@ -37,8 +37,8 @@ jobs:
         if: failure()  # 只有当同步失败（有冲突）时才执行
         run: |
           # 添加 upstream 作为远程仓库
-          git remote add upstream https://github.com/hafrey1/LunaTV-config.git
-          git fetch upstream main
+          #git remote add upstream https://github.com/hafrey1/LunaTV-config.git
+          #git fetch upstream main
           
           # 强制用 upstream 的版本覆盖那两个文件
           # 👇 把下面的路径替换成你实际冲突的两个文件路径
