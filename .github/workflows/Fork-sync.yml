@@ -31,7 +31,27 @@ jobs:
 
           # Set test_mode true to run tests instead of the true action!!
           test_mode: false
-
+          
+      # 👇 新增：强制覆盖不重要的冲突文件
+      - name: Force override unimportant conflicting files
+        if: failure()  # 只有当同步失败（有冲突）时才执行
+        run: |
+          # 添加 upstream 作为远程仓库
+          git remote add upstream https://github.com/hafrey1/LunaTV-config.git
+          git fetch upstream main
+          
+          # 强制用 upstream 的版本覆盖那两个文件
+          # 👇 把下面的路径替换成你实际冲突的两个文件路径
+          git checkout upstream/main -- README.md report.md
+          
+          # 提交这个覆盖操作
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Auto-resolve: force use upstream version for unimportant files" || echo "No changes to commit"
+          
+          # 强制推送
+          git push origin main --force
+          
       - name: Sync check
         if: failure()
         run: |
